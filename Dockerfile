@@ -1,10 +1,12 @@
-FROM node:18-alpine
+FROM python:3.9-slim
+
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
-RUN npm run build
-FROM nginx:alpine
-COPY --from=0 /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]

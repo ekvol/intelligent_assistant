@@ -1,6 +1,3 @@
-transformers
-pandas
-sklearn
+flask
 torch
-matplotlib
-jupyter
+transformers

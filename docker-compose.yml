@@ -1,43 +1,10 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  backend:
-    build: ./backend
+  assistant:
+    build: .
     ports:
       - "5000:5000"
-    environment:
-      - FLASK_ENV=development
-    depends_on:
-      - mongodb
-      - postgres
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-
-  mongodb:
-    image: mongo:5.0
-    restart: always
-    ports:
-      - "27017:27017"
     volumes:
-      - mongo_data:/data/db
-
-  postgres:
-    image: postgres:14
-    restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: university_db
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  mongo_data:
-  pgdata:
+      - .:/app
+    restart: unless-stopped
